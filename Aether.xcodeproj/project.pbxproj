@@ -6,13 +6,31 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5478B54E2D5AC14A0085AD42 /* TOMLKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5478B54D2D5AC14A0085AD42 /* TOMLKit */; };
+		5478B5512D5AC1630085AD42 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = 5478B5502D5AC1630085AD42 /* HotKey */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		5478B53A2D5AC13A0085AD42 /* Aether.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aether.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5478B5722D5B046D0085AD42 /* Exceptions for "Aether" folder in "Aether" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 5478B5392D5AC13A0085AD42 /* Aether */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5478B53C2D5AC13A0085AD42 /* Aether */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5478B5722D5B046D0085AD42 /* Exceptions for "Aether" folder in "Aether" target */,
+			);
 			path = Aether;
 			sourceTree = "<group>";
 		};
@@ -23,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5478B5512D5AC1630085AD42 /* HotKey in Frameworks */,
+				5478B54E2D5AC14A0085AD42 /* TOMLKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +85,8 @@
 			);
 			name = Aether;
 			packageProductDependencies = (
+				5478B54D2D5AC14A0085AD42 /* TOMLKit */,
+				5478B5502D5AC1630085AD42 /* HotKey */,
 			);
 			productName = Aether;
 			productReference = 5478B53A2D5AC13A0085AD42 /* Aether.app */;
@@ -94,6 +116,10 @@
 			);
 			mainGroup = 5478B5312D5AC13A0085AD42;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5478B54C2D5AC14A0085AD42 /* XCRemoteSwiftPackageReference "TOMLKit" */,
+				5478B54F2D5AC1630085AD42 /* XCRemoteSwiftPackageReference "HotKey" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5478B53B2D5AC13A0085AD42 /* Products */;
 			projectDirPath = "";
@@ -253,8 +279,14 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Aether/Preview Content\"";
+				DEVELOPMENT_TEAM = 43TJNHX42U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Aether/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "This app needs access to control other applications for quick switching.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -278,8 +310,14 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Aether/Preview Content\"";
+				DEVELOPMENT_TEAM = 43TJNHX42U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Aether/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "This app needs access to control other applications for quick switching.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -315,6 +353,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5478B54C2D5AC14A0085AD42 /* XCRemoteSwiftPackageReference "TOMLKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/LebJe/TOMLKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.0;
+			};
+		};
+		5478B54F2D5AC1630085AD42 /* XCRemoteSwiftPackageReference "HotKey" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soffes/HotKey.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5478B54D2D5AC14A0085AD42 /* TOMLKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5478B54C2D5AC14A0085AD42 /* XCRemoteSwiftPackageReference "TOMLKit" */;
+			productName = TOMLKit;
+		};
+		5478B5502D5AC1630085AD42 /* HotKey */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5478B54F2D5AC1630085AD42 /* XCRemoteSwiftPackageReference "HotKey" */;
+			productName = HotKey;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5478B5322D5AC13A0085AD42 /* Project object */;
 }

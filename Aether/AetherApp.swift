@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct AetherApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        // No main window; this is a status‑bar–only app.
+        Settings {
+            EmptyView()
         }
     }
 }
