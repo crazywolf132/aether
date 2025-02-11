@@ -99,6 +99,26 @@ jobs:
           # Clean up
           rm -rf dmg_temp
 
+      - name: Notarize DMG
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+          TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          # Create temporary keychain for notarization
+          xcrun notarytool store-credentials "notarytool-profile" \
+            --apple-id "$APPLE_ID" \
+            --team-id "$TEAM_ID" \
+            --password "$APPLE_APP_SPECIFIC_PASSWORD"
+          
+          # Submit the DMG for notarization
+          xcrun notarytool submit build/Aether.dmg \
+            --keychain-profile "notarytool-profile" \
+            --wait
+          
+          # Staple the notarization ticket to the DMG
+          xcrun stapler staple build/Aether.dmg
+
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
