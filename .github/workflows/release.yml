@@ -89,18 +89,11 @@ jobs:
       - name: Create DMG
         run: |
           npm install -g create-dmg
-          # Move to the directory containing the app
           cd build/export
-          # Create DMG with basic settings
           create-dmg \
             --volname "Aether" \
-            --window-size 600 400 \
-            --background "white" \
-            --icon "Aether.app" 150 150 \
-            --app-drop-link 450 150 \
             "Aether.dmg" \
             "Aether.app"
-          # Move DMG back to build directory
           mv Aether.dmg ../Aether.dmg
 
       - name: Create Release
