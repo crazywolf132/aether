@@ -48,11 +48,15 @@ jobs:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
           P12_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
           KEYCHAIN_PASSWORD: ${{ github.run_id }}
+          TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           # Create variables
           CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
           KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
 
+          # Delete keychain if exists
+          security delete-keychain $KEYCHAIN_PATH || true
+          
           # Import certificate from secrets
           echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
 
@@ -63,10 +67,18 @@ jobs:
 
           # Import certificate to keychain
           security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security list-keychain -d user -s $KEYCHAIN_PATH
           
-          # Set key partition list (required for signing)
+          # Allow codesigning from this keychain
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          
+          # Add keychain to search list
+          security list-keychains -d user -s $KEYCHAIN_PATH $(security list-keychains -d user | tr -d '"')
+          
+          # Set default keychain
+          security default-keychain -s $KEYCHAIN_PATH
+          
+          # Show certificate info
+          security find-identity -v -p codesigning $KEYCHAIN_PATH
 
       - name: Build app
         env:
