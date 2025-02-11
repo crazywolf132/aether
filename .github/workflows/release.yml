@@ -88,13 +88,15 @@ jobs:
 
       - name: Create DMG
         run: |
-          npm install -g create-dmg
           cd build/export
-          create-dmg \
-            --volname "Aether" \
-            "Aether.dmg" \
-            "Aether.app"
-          mv Aether.dmg ../Aether.dmg
+          # Create a temporary directory for DMG creation
+          mkdir dmg_temp
+          # Copy the app to the temporary directory
+          cp -r Aether.app dmg_temp/
+          # Create the DMG
+          hdiutil create -volname "Aether" -srcfolder dmg_temp -ov -format UDZO ../Aether.dmg
+          # Clean up
+          rm -rf dmg_temp
 
       - name: Create Release
         id: create_release
