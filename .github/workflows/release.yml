@@ -89,17 +89,19 @@ jobs:
       - name: Create DMG
         run: |
           npm install -g create-dmg
+          # Move to the directory containing the app
+          cd build/export
+          # Create DMG with basic settings
           create-dmg \
             --volname "Aether" \
-            --volicon "Aether/Assets.xcassets/AppIcon.appiconset/AppIcon-128.png" \
-            --window-pos 200 120 \
-            --window-size 800 400 \
-            --icon-size 100 \
-            --icon "Aether.app" 200 190 \
-            --hide-extension "Aether.app" \
-            --app-drop-link 600 185 \
-            "build/Aether.dmg" \
-            "build/export/Aether.app"
+            --window-size 600 400 \
+            --background "white" \
+            --icon "Aether.app" 150 150 \
+            --app-drop-link 450 150 \
+            "Aether.dmg" \
+            "Aether.app"
+          # Move DMG back to build directory
+          mv Aether.dmg ../Aether.dmg
 
       - name: Create Release
         id: create_release
