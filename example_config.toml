@@ -1,0 +1,141 @@
+# Aether Configuration File
+# Location: ~/.config/aether/aether_config.toml
+
+# Global Settings
+[settings]
+quickSwitchEnabled = true  # Enable/disable all hotkeys globally
+
+# Application Configurations
+[[apps]]
+appName = "Terminal"
+bundleID = "com.apple.Terminal"
+enabled = true
+customLaunchPath = "/Applications/Terminal.app"  # Optional: custom path to the application
+hotkey = { 
+    key = "T",  # Single character key
+    modifiers = ["command", "option"]  # Available: command, option, control, shift
+}
+windowBehavior = { 
+    cycleMethod = "next",  # Available: "next", "stack", "minimize"
+    restoreLayout = true,  # Remember and restore window positions
+    groupBySpaces = true,  # Only cycle through windows in current space
+    followFocus = true,    # Switch spaces if window is on different space
+    border = {
+        enabled = true,
+        color = "#FF0000FF",  # RGBA format: Red with 100% opacity
+        thickness = 3,
+        animate = true,
+        visualEffect = false,
+        radius = 6.0
+    }
+}
+
+[[apps]]
+appName = "Safari"
+bundleID = "com.apple.Safari"
+enabled = true
+hotkey = { 
+    key = "S", 
+    modifiers = ["command", "option"] 
+}
+windowBehavior = { 
+    cycleMethod = "stack",
+    restoreLayout = false,
+    groupBySpaces = false,
+    followFocus = false,
+    border = {
+        enabled = true,
+        color = "#0000FFAA",  # Blue with ~67% opacity
+        thickness = 2,
+        animate = true,
+        visualEffect = true,  # Use system visual effects for border
+        radius = 4.0
+    }
+}
+
+[[apps]]
+appName = "Visual Studio Code"
+bundleID = "com.microsoft.VSCode"
+enabled = true
+hotkey = { 
+    key = "V", 
+    modifiers = ["command", "option", "shift"]  # Can use multiple modifiers
+}
+windowBehavior = { 
+    cycleMethod = "next",
+    restoreLayout = true,
+    groupBySpaces = true,
+    followFocus = true,
+    border = {
+        enabled = true,
+        color = "#00FF00AA",  # Green with ~67% opacity
+        thickness = 4,
+        animate = false,      # Disable animation
+        visualEffect = false,
+        radius = 0.0         # Sharp corners
+    }
+}
+
+[[apps]]
+appName = "Slack"
+bundleID = "com.slack.Slack"
+enabled = true
+hotkey = { 
+    key = "L", 
+    modifiers = ["command", "control"]  # Different modifier combination
+}
+windowBehavior = { 
+    cycleMethod = "minimize",  # Minimize instead of cycling
+    restoreLayout = false,
+    groupBySpaces = false,
+    followFocus = false,
+    border = {
+        enabled = false       # Disable border for this app
+    }
+}
+
+[[apps]]
+appName = "Google Chrome"
+bundleID = "com.google.Chrome"
+enabled = true
+hotkey = { 
+    key = "C", 
+    modifiers = ["command", "option"] 
+}
+windowBehavior = { 
+    cycleMethod = "next",
+    restoreLayout = true,
+    groupBySpaces = true,
+    followFocus = true,
+    border = {
+        enabled = true,
+        color = "#9B59B6FF",  # Purple with full opacity
+        thickness = 2,
+        animate = true,
+        visualEffect = true,
+        radius = 8.0          # More rounded corners
+    }
+}
+
+[[apps]]
+appName = "Finder"
+bundleID = "com.apple.finder"
+enabled = true
+hotkey = { 
+    key = "F", 
+    modifiers = ["command", "option"] 
+}
+windowBehavior = { 
+    cycleMethod = "stack",
+    restoreLayout = true,
+    groupBySpaces = false,
+    followFocus = true,
+    border = {
+        enabled = true,
+        color = "#2ECC71AA",  # Green with ~67% opacity
+        thickness = 3,
+        animate = true,
+        visualEffect = true,
+        radius = 6.0
+    }
+} 

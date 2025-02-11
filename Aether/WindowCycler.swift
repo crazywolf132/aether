@@ -11,9 +11,11 @@ class WindowCycler {
     private var windows: [AXUIElement] = []
     private var currentIndex: Int = -1
     private let app: NSRunningApplication
+    private let windowBehavior: WindowBehavior
 
-    init(app: NSRunningApplication) {
+    init(app: NSRunningApplication, windowBehavior: WindowBehavior) {
         self.app = app
+        self.windowBehavior = windowBehavior
         updateWindows()
         print("WindowCycler: Initialized for app \(app.localizedName ?? "unknown")")
     }
@@ -49,43 +51,48 @@ class WindowCycler {
     }
     
     func cycleToNextWindow() {
+        print("WindowCycler: Starting window cycle")
         updateWindows()
         
-        // Force the app to become active and ignore other apps.
-        app.activate(options: [.activateAllWindows, .activateIgnoringOtherApps])
+        // Force the app to become active
+        app.activate(options: [.activateAllWindows])
         
         if windows.isEmpty {
             print("WindowCycler: No windows found. Retrying after delay.")
             // Allow a short delay for the app to create windows.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+            let workItem = DispatchWorkItem { [weak self] in
                 guard let self = self else { return }
                 self.updateWindows()
                 if self.windows.isEmpty {
                     print("WindowCycler: Still no windows found after delay. Activating app.")
-                    self.app.activate(options: [.activateAllWindows, .activateIgnoringOtherApps])
+                    self.app.activate(options: [.activateAllWindows])
                 } else {
                     self.currentIndex = 0
                     self.raiseWindow(self.windows[self.currentIndex])
                 }
             }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: workItem)
             return
         }
         
         currentIndex = (currentIndex + 1) % windows.count
         let nextWindow = windows[currentIndex]
         
+        print("WindowCycler: Cycling to window \(currentIndex + 1) of \(windows.count)")
+        
         // A short delay gives the system time to fully activate the app.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+        let workItem = DispatchWorkItem { [weak self] in
             guard let self = self else { return }
             self.raiseWindow(nextWindow)
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: workItem)
     }
     
     private func raiseWindow(_ window: AXUIElement) {
         let error = AXUIElementPerformAction(window, kAXRaiseAction as CFString)
         if error != .success {
             print("WindowCycler: Failed to raise window (error \(error.rawValue)). Activating app instead.")
-            app.activate(options: [.activateAllWindows, .activateIgnoringOtherApps])
+            app.activate(options: [.activateAllWindows])
         } else {
             print("WindowCycler: Raised window \(currentIndex + 1) of \(windows.count).")
         }
