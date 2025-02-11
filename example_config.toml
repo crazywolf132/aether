@@ -7,135 +7,87 @@ quickSwitchEnabled = true  # Enable/disable all hotkeys globally
 
 # Application Configurations
 [[apps]]
+# Basic app info
 appName = "Terminal"
 bundleID = "com.apple.Terminal"
 enabled = true
 customLaunchPath = "/Applications/Terminal.app"  # Optional: custom path to the application
-hotkey = { 
-    key = "T",  # Single character key
-    modifiers = ["command", "option"]  # Available: command, option, control, shift
-}
-windowBehavior = { 
-    cycleMethod = "next",  # Available: "next", "stack", "minimize"
-    restoreLayout = true,  # Remember and restore window positions
-    groupBySpaces = true,  # Only cycle through windows in current space
-    followFocus = true,    # Switch spaces if window is on different space
-    border = {
-        enabled = true,
-        color = "#FF0000FF",  # RGBA format: Red with 100% opacity
-        thickness = 3,
-        animate = true,
-        visualEffect = false,
-        radius = 6.0
-    }
-}
+
+# Hotkey settings
+hotkeyKey = "T"  # Single character key
+hotkeyModifiers = ["command", "option"]  # Available: command, option, control, shift
+
+# Window behavior settings
+windowCycleMethod = "next"  # Available: "next", "stack", "minimize"
+windowRestoreLayout = true  # Remember and restore window positions
+windowGroupBySpaces = true  # Only cycle through windows in current space
+windowFollowFocus = true    # Switch spaces if window is on different space
 
 [[apps]]
 appName = "Safari"
 bundleID = "com.apple.Safari"
 enabled = true
-hotkey = { 
-    key = "S", 
-    modifiers = ["command", "option"] 
-}
-windowBehavior = { 
-    cycleMethod = "stack",
-    restoreLayout = false,
-    groupBySpaces = false,
-    followFocus = false,
-    border = {
-        enabled = true,
-        color = "#0000FFAA",  # Blue with ~67% opacity
-        thickness = 2,
-        animate = true,
-        visualEffect = true,  # Use system visual effects for border
-        radius = 4.0
-    }
-}
+hotkeyKey = "S"
+hotkeyModifiers = ["command", "option"]
+windowCycleMethod = "stack"
+windowRestoreLayout = false
+windowGroupBySpaces = false
+windowFollowFocus = false
 
 [[apps]]
 appName = "Visual Studio Code"
 bundleID = "com.microsoft.VSCode"
 enabled = true
-hotkey = { 
-    key = "V", 
-    modifiers = ["command", "option", "shift"]  # Can use multiple modifiers
-}
-windowBehavior = { 
-    cycleMethod = "next",
-    restoreLayout = true,
-    groupBySpaces = true,
-    followFocus = true,
-    border = {
-        enabled = true,
-        color = "#00FF00AA",  # Green with ~67% opacity
-        thickness = 4,
-        animate = false,      # Disable animation
-        visualEffect = false,
-        radius = 0.0         # Sharp corners
-    }
-}
+hotkeyKey = "V"
+hotkeyModifiers = ["command", "option", "shift"]  # Example of using three modifiers
+windowCycleMethod = "next"
+windowRestoreLayout = true
+windowGroupBySpaces = true
+windowFollowFocus = true
 
 [[apps]]
 appName = "Slack"
 bundleID = "com.slack.Slack"
 enabled = true
-hotkey = { 
-    key = "L", 
-    modifiers = ["command", "control"]  # Different modifier combination
-}
-windowBehavior = { 
-    cycleMethod = "minimize",  # Minimize instead of cycling
-    restoreLayout = false,
-    groupBySpaces = false,
-    followFocus = false,
-    border = {
-        enabled = false       # Disable border for this app
-    }
-}
+hotkeyKey = "L"
+hotkeyModifiers = ["command", "control"]  # Example of different modifier combination
+windowCycleMethod = "minimize"  # Example of using minimize instead of cycling
+windowRestoreLayout = false
+windowGroupBySpaces = false
+windowFollowFocus = false
 
 [[apps]]
 appName = "Google Chrome"
 bundleID = "com.google.Chrome"
 enabled = true
-hotkey = { 
-    key = "C", 
-    modifiers = ["command", "option"] 
-}
-windowBehavior = { 
-    cycleMethod = "next",
-    restoreLayout = true,
-    groupBySpaces = true,
-    followFocus = true,
-    border = {
-        enabled = true,
-        color = "#9B59B6FF",  # Purple with full opacity
-        thickness = 2,
-        animate = true,
-        visualEffect = true,
-        radius = 8.0          # More rounded corners
-    }
-}
+hotkeyKey = "C"
+hotkeyModifiers = ["command", "option"]
+windowCycleMethod = "next"
+windowRestoreLayout = true
+windowGroupBySpaces = true
+windowFollowFocus = true
 
 [[apps]]
 appName = "Finder"
 bundleID = "com.apple.finder"
 enabled = true
-hotkey = { 
-    key = "F", 
-    modifiers = ["command", "option"] 
-}
-windowBehavior = { 
-    cycleMethod = "stack",
-    restoreLayout = true,
-    groupBySpaces = false,
-    followFocus = true,
-    border = {
-        enabled = true,
-        color = "#2ECC71AA",  # Green with ~67% opacity
-        thickness = 3,
-        animate = true,
-        visualEffect = true,
-        radius = 6.0
-    }
-} 
+hotkeyKey = "F"
+hotkeyModifiers = ["command", "option"]
+windowCycleMethod = "stack"
+windowRestoreLayout = true
+windowGroupBySpaces = false
+windowFollowFocus = true
+
+# Configuration Notes:
+# 1. Each application must have a unique hotkey combination
+# 2. Available modifier keys: command, option, control, shift
+# 3. Window cycle methods:
+#    - "next": Cycle through windows in order
+#    - "stack": Cycle based on most recently used
+#    - "minimize": Minimize the current window
+# 4. Window behavior options:
+#    - windowRestoreLayout: Remember window positions
+#    - windowGroupBySpaces: Only cycle through windows in current space
+#    - windowFollowFocus: Follow focus across spaces
+# 5. All boolean values use true/false (lowercase)
+# 6. Strings must be in "quotes" 
