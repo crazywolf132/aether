@@ -64,6 +64,9 @@ jobs:
           # Import certificate to keychain
           security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
+          
+          # Set key partition list (required for signing)
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
 
       - name: Build app
         env:
@@ -78,10 +81,19 @@ jobs:
             -derivedDataPath build \
             -archivePath build/Aether.xcarchive \
             MACOSX_DEPLOYMENT_TARGET=11.0 \
+            CODE_SIGN_IDENTITY="Developer ID Application" \
+            CODE_SIGN_STYLE="Manual" \
+            DEVELOPMENT_TEAM="$TEAM_ID" \
             archive
 
       - name: Create app bundle
+        env:
+          TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
+          # Update ExportOptions.plist
+          /usr/libexec/PlistBuddy -c "Set :method developer-id" ExportOptions.plist
+          /usr/libexec/PlistBuddy -c "Set :teamID $TEAM_ID" ExportOptions.plist
+          
           xcodebuild -exportArchive \
             -archivePath build/Aether.xcarchive \
             -exportOptionsPlist ExportOptions.plist \
@@ -98,6 +110,8 @@ jobs:
           hdiutil create -volname "Aether" -srcfolder dmg_temp -ov -format UDZO ../Aether.dmg
           # Clean up
           rm -rf dmg_temp
+          # Sign the DMG
+          codesign --force --sign "Developer ID Application" --options runtime ../Aether.dmg
 
       - name: Notarize DMG
         env:
